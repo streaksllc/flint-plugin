@@ -4,6 +4,25 @@ import { RxDatabase } from 'rxdb';
 import { RxDocument } from 'rxdb';
 import { StoreApi } from 'zustand';
 
+export declare type AssistantRule = {
+    id: string;
+    voiceOver?: string;
+} & ({
+    name: "half-way";
+} | {
+    name: "time-up";
+} | {
+    name: "x-min-over" | "x-min-left";
+    minutes: number;
+    repeats: boolean;
+} | {
+    name: "start";
+} | {
+    name: "at";
+});
+
+export declare type AvailableMusicControl = "spotify" | "none" | "youtube";
+
 export declare type CommandItem = {
     value: string;
     onSelect: () => void;
@@ -76,7 +95,6 @@ export declare const DAYS_OF_WEEK_INCL_DAY: ({
 export declare type DBCollections = {
     tasks: TaskCollection;
     task_events: TaskEventCollection;
-    workspaces: WorkspaceCollection;
 };
 
 export declare const ENDS: ({
@@ -93,8 +111,11 @@ export declare const ENDS: ({
 export declare interface Flint {
     db: RxDatabase<DBCollections, any, any>;
     taskStore: TaskStore;
+    settingStore: SettingStore;
     useTaskStore: () => TaskStoreState & TaskStoreActions;
+    useSettingsStore: () => SettingsState & SettingsActions;
     registerPlugin(plugin: FlintPlugin): void;
+    setActiveTasks: (taskIds: Task["id"][]) => void;
 }
 
 export declare interface FlintPlugin {
@@ -112,6 +133,8 @@ export declare interface FlintWindow extends Window {
 }
 
 export declare function isSection(task: Task): boolean;
+
+export declare type ModalType = "new-task" | "recurring" | "voice-assistant" | "create-workspace" | "drawer" | "plugins" | null;
 
 export declare const MONTHS: ({
     label: string;
@@ -201,6 +224,54 @@ export declare const SECTION_PREFIX = "#";
 
 export declare const SECTION_PREFIX_REGEX: RegExp;
 
+export declare interface SettingsActions {
+    setActiveTaskId: (id: string | string[] | null) => Promise<void>;
+    setPlayingTaskId: (id: string | null) => void;
+    setShowModal: (showModal: ModalType) => void;
+    setMusicControl: (musicControl: AvailableMusicControl) => void;
+    setAutoPlay: (autoPlay: boolean) => void;
+    setStopwatchDefaultTime: (stopwatchDefaultTime: number) => void;
+    setTaskFilter: (taskFilter: TaskFilter) => void;
+    setTaskbarWidth: (taskbarWidth: number) => void;
+    setShowActivityFeed: (showActivityFeed: boolean) => void;
+    setAssistantName: (assistantName: "nicole" | "matthew" | null) => void;
+    setYoutubeMinizmized: (youtubeMinizmized: boolean) => void;
+    setAssistantRules: (assistantRules: AssistantRule[]) => void;
+    generateVoiceOvers: (assistantRules: AssistantRule[]) => Promise<string[]>;
+    setTaskStoreMigrated: (taskStoreMigrated: boolean) => void;
+    setActiveWorkspaceId: (activeWorkspaceId: string | undefined) => void;
+    setActivatedPlugins: (activatedPlugins: {
+        [pluginName: string]: boolean;
+    }) => void;
+}
+
+export declare const settingsDefaultState: SettingsState;
+
+export declare interface SettingsState {
+    activeTaskId: string | string[] | null;
+    playingTaskId: string | null;
+    showModal: ModalType;
+    musicControl: AvailableMusicControl;
+    youtubeMinizmized: boolean;
+    autoPlay: boolean;
+    stopwatchDefaultTime: number;
+    taskFilter: TaskFilter;
+    taskbarWidth: number;
+    showActivityFeed: boolean;
+    assistantRules: AssistantRule[];
+    assistantName: "nicole" | "matthew" | null;
+    isGeneratingVoiceOver: boolean;
+    taskStoreMigrated: boolean;
+    activeWorkspaceId?: string;
+    activatedPlugins: {
+        [pluginName: string]: boolean;
+    };
+}
+
+export declare type SettingsStore = SettingsState & SettingsActions;
+
+export declare type SettingStore = StoreApi<SettingsState & SettingsActions>;
+
 export declare type Task = {
     id: string;
     rank: string;
@@ -289,6 +360,8 @@ export declare type TaskEvent = {
 };
 
 export declare type TaskEventCollection = RxCollection<TaskEvent>;
+
+export declare type TaskFilter = "incomplete" | "upcoming" | "completed" | "recurring";
 
 export declare type TaskStore = StoreApi<TaskStoreState & TaskStoreActions>;
 
