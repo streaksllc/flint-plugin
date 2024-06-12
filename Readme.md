@@ -4,6 +4,8 @@ With this plugin you can extend flint plugins.
 
 ## Example
 
+Find a full example project [https://github.com/streaksllc/flint-plugin-example](https://github.com/streaksllc/flint-plugin-example).
+
 ```typescript
 import { FlintPlugin, FlintWindow } from "flint-plugin";
 
