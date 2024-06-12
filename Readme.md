@@ -36,6 +36,12 @@ Example `manifest.json`:
 4. Activate the plugin
 5. Restart Flint
 
+## Api
+
+First and foremost, you can access the flint object from a flint window `window.flint`. Make sure to declare the global window as `declare const window: FlintWindow;`.
+
+`window.flint.db` gives you access the Flints database that allows you to CRUD tasks and task events.
+
 ## Example Plugin
 
 Find a full example project [https://github.com/streaksllc/flint-plugin-example](https://github.com/streaksllc/flint-plugin-example).
