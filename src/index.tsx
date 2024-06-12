@@ -331,6 +331,12 @@ export interface TaskStoreState {
 
 export interface TaskStoreActions {}
 
+export type CommandItem = {
+  value: string;
+  onSelect: () => void;
+  children: React.ReactNode;
+};
+
 export type AvailableMusicControl = "spotify" | "none" | "youtube";
 export type TaskFilter = "incomplete" | "upcoming" | "completed" | "recurring";
 export type AssistantRule = {
@@ -362,15 +368,8 @@ export type ModalType =
   | "voice-assistant"
   | "create-workspace"
   | "drawer"
+  | "plugins"
   | null;
-
-export type TimerMode = "youtube" | "elapsed" | "remaining" | "stopwatch";
-
-export type CommandItem = {
-  value: string;
-  onSelect: () => void;
-  children: React.ReactNode;
-};
 
 export interface SettingsState {
   activeTaskId: string | string[] | null;
@@ -388,8 +387,7 @@ export interface SettingsState {
   isGeneratingVoiceOver: boolean;
   taskStoreMigrated: boolean;
   activeWorkspaceId?: string;
-  searchQuery?: string;
-  timerMode: TimerMode;
+  activatedPlugins: { [pluginName: string]: boolean };
 }
 
 export interface SettingsActions {
@@ -408,9 +406,126 @@ export interface SettingsActions {
   generateVoiceOvers: (assistantRules: AssistantRule[]) => Promise<string[]>;
   setTaskStoreMigrated: (taskStoreMigrated: boolean) => void;
   setActiveWorkspaceId: (activeWorkspaceId: string | undefined) => void;
-  setSearchQuery: (searchQuery: string | undefined) => void;
-  setTimerMode: (timerMode: TimerMode) => void;
+  setActivatedPlugins: (activatedPlugins: {
+    [pluginName: string]: boolean;
+  }) => void;
 }
+
+export const settingsDefaultState: SettingsState = {
+  taskStoreMigrated: false,
+  taskFilter: "incomplete",
+  activeTaskId: null,
+  musicControl: "youtube",
+  youtubeMinizmized: false,
+  autoPlay: false,
+  stopwatchDefaultTime: 25 * 60,
+  taskbarWidth: 460,
+  showActivityFeed: false,
+  assistantName: "nicole",
+  showModal: null,
+  isGeneratingVoiceOver: false,
+  playingTaskId: null,
+  assistantRules: [
+    {
+      id: "0",
+      name: "start",
+      voiceOver: "Let's get started!",
+    },
+    {
+      id: "1",
+      name: "half-way",
+      voiceOver: "You're halfway done with your task.",
+    },
+    {
+      id: "2",
+      name: "x-min-left",
+      minutes: 10,
+      repeats: false,
+      voiceOver: "You have 10 minutes left.",
+    },
+    {
+      id: "3",
+      name: "x-min-left",
+      minutes: 5,
+      repeats: false,
+      voiceOver: "You have 5 minutes left.",
+    },
+    {
+      id: "4",
+      name: "x-min-left",
+      minutes: 2,
+      repeats: false,
+      voiceOver: "You have 2 minutes left.",
+    },
+    {
+      id: "5",
+      name: "x-min-left",
+      minutes: 1,
+      repeats: false,
+      voiceOver: "You have 1 minute left.",
+    },
+    { id: "6", name: "time-up", voiceOver: "Time is up." },
+    {
+      id: "7",
+      name: "x-min-over",
+      minutes: 1,
+      repeats: false,
+      voiceOver: "You are 1 minute over your estimated task time.",
+    },
+    {
+      id: "8",
+      name: "x-min-over",
+      minutes: 5,
+      repeats: false,
+      voiceOver: "You are 5 minutes over your estimated task time.",
+    },
+    {
+      id: "9",
+      name: "x-min-over",
+      minutes: 10,
+      repeats: false,
+      voiceOver: "You are 10 minutes over your estimated task time.",
+    },
+    {
+      id: "10",
+      name: "x-min-over",
+      minutes: 15,
+      repeats: false,
+      voiceOver: "You are 15 minutes over your estimated task time.",
+    },
+    {
+      id: "11",
+      name: "x-min-over",
+      minutes: 20,
+      repeats: false,
+      voiceOver: "You are 20 minutes over your estimated task time.",
+    },
+    {
+      id: "12",
+      name: "x-min-over",
+      minutes: 25,
+      repeats: false,
+      voiceOver: "You are 25 minutes over your estimated task time.",
+    },
+    {
+      id: "13",
+      name: "x-min-over",
+      minutes: 30,
+      repeats: false,
+      voiceOver: "You are 30 minutes over your estimated task time.",
+    },
+    {
+      id: "14",
+      name: "x-min-over",
+      minutes: 30,
+      repeats: true,
+      voiceOver: "You are another 30 minutes over your estimated task time.",
+    },
+  ],
+  activatedPlugins: {},
+};
+
+export type SettingsStore = SettingsState & SettingsActions;
 
 export type TaskStore = StoreApi<TaskStoreState & TaskStoreActions>;
 export type SettingStore = StoreApi<SettingsState & SettingsActions>;
