@@ -42,6 +42,10 @@ First and foremost, you can access the flint object from a flint window `window.
 
 `window.flint.db` gives you access the Flints database that allows you to CRUD tasks and task events.
 
+Make sure your plugin calls `registerPlugin` if you want to register hooks into Flint.
+
+You can set a `rootComponent` which is mounted to the root of the application window.
+
 ## Example Plugin
 
 Find a full example project [https://github.com/streaksllc/flint-plugin-example](https://github.com/streaksllc/flint-plugin-example).

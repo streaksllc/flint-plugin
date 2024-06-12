@@ -1,4 +1,4 @@
-import { type StoreApi } from "zustand";
+import { UseBoundStore, type StoreApi } from "zustand";
 import { type RxDocument, type RxCollection, type RxDatabase } from "rxdb";
 import React from "react";
 
@@ -415,6 +415,7 @@ export type SettingsStore = SettingsState & SettingsActions;
 
 export type TaskStore = StoreApi<TaskStoreState & TaskStoreActions>;
 export type SettingStore = StoreApi<SettingsState & SettingsActions>;
+export type UseSettingsStore = UseBoundStore<SettingStore>;
 
 export type DBCollections = {
   tasks: TaskCollection;
@@ -431,16 +432,18 @@ export interface FlintPlugin {
     page: Page | undefined;
     setOpen: (open: boolean, page?: Page | undefined) => void;
   }) => CommandItem[];
+  rootComponent?: React.ReactNode;
 }
 
 export interface Flint {
   db: RxDatabase<DBCollections, any, any>;
   taskStore: TaskStore;
   settingStore: SettingStore;
-  useTaskStore: () => TaskStoreState & TaskStoreActions;
-  useSettingsStore: () => SettingsState & SettingsActions;
+  useTaskStore: UseBoundStore<TaskStore>;
+  useSettingsStore: UseBoundStore<SettingStore>;
   registerPlugin(plugin: FlintPlugin): void;
-  setActiveTasks: (taskIds: Task["id"][]) => void;
+  play(): void;
+  stop(): void;
 }
 
 export interface FlintWindow extends Window {

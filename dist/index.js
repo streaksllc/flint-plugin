@@ -1,8 +1,8 @@
-const e = "#", t = new RegExp(`^${e}`, "g");
-function i(a) {
-  return a.name.startsWith(e);
+const e = "#", u = new RegExp(`^${e}`, "g");
+function b(l) {
+  return l.name.startsWith(e);
 }
-const u = [
+const r = [
   {
     label: "never",
     value: "never"
@@ -27,7 +27,7 @@ const u = [
     label: "yearly",
     value: "yearly"
   }
-], s = [
+], v = [
   {
     label: "day",
     value: "day"
@@ -44,7 +44,7 @@ const u = [
     label: "year",
     value: "year"
   }
-], r = [
+], y = [
   {
     label: "never",
     value: "never"
@@ -57,7 +57,7 @@ const u = [
     label: "on date",
     value: "on-date"
   }
-], l = [
+], a = [
   {
     label: "Sunday",
     value: "sunday"
@@ -91,8 +91,8 @@ const u = [
     label: "day",
     value: "day"
   },
-  ...l
-], o = [
+  ...a
+], t = [
   {
     label: "January",
     value: "january"
@@ -141,128 +141,15 @@ const u = [
     label: "December",
     value: "december"
   }
-], v = {
-  taskStoreMigrated: !1,
-  taskFilter: "incomplete",
-  activeTaskId: null,
-  musicControl: "youtube",
-  youtubeMinizmized: !1,
-  autoPlay: !1,
-  stopwatchDefaultTime: 25 * 60,
-  taskbarWidth: 460,
-  showActivityFeed: !1,
-  assistantName: "nicole",
-  showModal: null,
-  isGeneratingVoiceOver: !1,
-  playingTaskId: null,
-  assistantRules: [
-    {
-      id: "0",
-      name: "start",
-      voiceOver: "Let's get started!"
-    },
-    {
-      id: "1",
-      name: "half-way",
-      voiceOver: "You're halfway done with your task."
-    },
-    {
-      id: "2",
-      name: "x-min-left",
-      minutes: 10,
-      repeats: !1,
-      voiceOver: "You have 10 minutes left."
-    },
-    {
-      id: "3",
-      name: "x-min-left",
-      minutes: 5,
-      repeats: !1,
-      voiceOver: "You have 5 minutes left."
-    },
-    {
-      id: "4",
-      name: "x-min-left",
-      minutes: 2,
-      repeats: !1,
-      voiceOver: "You have 2 minutes left."
-    },
-    {
-      id: "5",
-      name: "x-min-left",
-      minutes: 1,
-      repeats: !1,
-      voiceOver: "You have 1 minute left."
-    },
-    { id: "6", name: "time-up", voiceOver: "Time is up." },
-    {
-      id: "7",
-      name: "x-min-over",
-      minutes: 1,
-      repeats: !1,
-      voiceOver: "You are 1 minute over your estimated task time."
-    },
-    {
-      id: "8",
-      name: "x-min-over",
-      minutes: 5,
-      repeats: !1,
-      voiceOver: "You are 5 minutes over your estimated task time."
-    },
-    {
-      id: "9",
-      name: "x-min-over",
-      minutes: 10,
-      repeats: !1,
-      voiceOver: "You are 10 minutes over your estimated task time."
-    },
-    {
-      id: "10",
-      name: "x-min-over",
-      minutes: 15,
-      repeats: !1,
-      voiceOver: "You are 15 minutes over your estimated task time."
-    },
-    {
-      id: "11",
-      name: "x-min-over",
-      minutes: 20,
-      repeats: !1,
-      voiceOver: "You are 20 minutes over your estimated task time."
-    },
-    {
-      id: "12",
-      name: "x-min-over",
-      minutes: 25,
-      repeats: !1,
-      voiceOver: "You are 25 minutes over your estimated task time."
-    },
-    {
-      id: "13",
-      name: "x-min-over",
-      minutes: 30,
-      repeats: !1,
-      voiceOver: "You are 30 minutes over your estimated task time."
-    },
-    {
-      id: "14",
-      name: "x-min-over",
-      minutes: 30,
-      repeats: !0,
-      voiceOver: "You are another 30 minutes over your estimated task time."
-    }
-  ],
-  activatedPlugins: {}
-};
+];
 export {
-  l as DAYS_OF_WEEK,
+  a as DAYS_OF_WEEK,
   n as DAYS_OF_WEEK_INCL_DAY,
-  s as DAY_WEEK_MONTH_YEAR,
-  r as ENDS,
-  o as MONTHS,
-  u as SCHEDULE,
+  v as DAY_WEEK_MONTH_YEAR,
+  y as ENDS,
+  t as MONTHS,
+  r as SCHEDULE,
   e as SECTION_PREFIX,
-  t as SECTION_PREFIX_REGEX,
-  i as isSection,
-  v as settingsDefaultState
+  u as SECTION_PREFIX_REGEX,
+  b as isSection
 };

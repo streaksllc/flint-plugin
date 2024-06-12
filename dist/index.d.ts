@@ -3,6 +3,7 @@ import { RxCollection } from 'rxdb';
 import { RxDatabase } from 'rxdb';
 import { RxDocument } from 'rxdb';
 import { StoreApi } from 'zustand';
+import { UseBoundStore } from 'zustand';
 
 export declare type AssistantRule = {
     id: string;
@@ -112,10 +113,11 @@ export declare interface Flint {
     db: RxDatabase<DBCollections, any, any>;
     taskStore: TaskStore;
     settingStore: SettingStore;
-    useTaskStore: () => TaskStoreState & TaskStoreActions;
-    useSettingsStore: () => SettingsState & SettingsActions;
+    useTaskStore: UseBoundStore<TaskStore>;
+    useSettingsStore: UseBoundStore<SettingStore>;
     registerPlugin(plugin: FlintPlugin): void;
-    setActiveTasks: (taskIds: Task["id"][]) => void;
+    play(): void;
+    stop(): void;
 }
 
 export declare interface FlintPlugin {
@@ -126,6 +128,7 @@ export declare interface FlintPlugin {
         page: Page | undefined;
         setOpen: (open: boolean, page?: Page | undefined) => void;
     }) => CommandItem[];
+    rootComponent?: default_2.ReactNode;
 }
 
 export declare interface FlintWindow extends Window {
@@ -244,8 +247,6 @@ export declare interface SettingsActions {
         [pluginName: string]: boolean;
     }) => void;
 }
-
-export declare const settingsDefaultState: SettingsState;
 
 export declare interface SettingsState {
     activeTaskId: string | string[] | null;
@@ -389,6 +390,8 @@ export declare interface User {
         status: string;
     }[];
 }
+
+export declare type UseSettingsStore = UseBoundStore<SettingStore>;
 
 export declare type Workspace = {
     id: string;
