@@ -2,6 +2,8 @@
 
 With this plugin you can extend flint plugins.
 
+![CleanShot 2024-06-12 at 10 56 52@2x](https://github.com/streaksllc/flint-plugin/assets/42768/dfad944e-5ae3-4658-9769-4ac339123d20)
+
 ## Example
 
 Find a full example project [https://github.com/streaksllc/flint-plugin-example](https://github.com/streaksllc/flint-plugin-example).
