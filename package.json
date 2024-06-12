@@ -1,0 +1,23 @@
+{
+  "name": "flint-plugin",
+  "private": false,
+  "version": "0.0.1",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "zustand": "^4.4.1",
+    "rxdb": "^14.17.1",
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2",
+    "vite": "^4.4.4",
+    "vite-plugin-dts": "^3.9.1"
+  }
+}
